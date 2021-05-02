@@ -47,28 +47,44 @@ poke_across <- pokemon_df %>% group_by(Type.1) %>%
 poke_longer <- poke_across %>% pivot_longer(Total_Mean:Speed_Median,values_to = "Skills")
 ```
 
-### Plot By Type.1 Grass
-
 ```{r}
-
-pokemon_grass <- pokemon_df  %>% filter(Type.1 =="Grass")
-ggplot(data=pokemon_grass,aes(x=Total,y=Name)) + geom_col() +
-  labs(title="Comparing Character's from Type.1 of Grass") +
-  geom_vline(data=pokemon_grass, aes(xintercept = mean(Total)))
-  
-
+pokemon_fire <- pokemon_df  %>% 
+  filter(Type.1 == "Fire") %>% 
+  mutate(Name.fill = if_else(Name == "Charmander", TRUE, FALSE)) 
+ggplot(data = pokemon_fire, aes(x = Total, 
+                                 y = Name, 
+                                 fill = Name.fill)) + 
+  geom_col() +
+  scale_fill_discrete(type = c("gray50","red")) +
+  labs(title = "Comparing Character's from Type.1 of Fire") +
+  geom_vline(data = pokemon_fire, aes(xintercept = mean(Total)))
 ```
-```{r}
-pokemon_fire <-pokemon_df  %>% filter(Type.1 =="Fire")
-ggplot(data=pokemon_fire,aes(x=Total,y=Name)) + geom_col() +
-  labs(title="Comparing Character's from Type.1 of Fire") +
-    geom_vline(data=pokemon_fire, aes(xintercept = mean(Total)))
-```
+
 ### Plot of Water
 
 ```{r}
-pokemon_water <-pokemon_df  %>% filter(Type.1 =="Water")
-ggplot(data=pokemon_water,aes(x=reorder(Name,Total),y=Total)) + geom_col() +
-  labs(title="Comparing Character's from Type.1 of Water") +   coord_flip() +
-  geom_vline(data=pokemon_water,aes(xintercept = mean(Total)))
+pokemon_water <- pokemon_df  %>% 
+  filter(Type.1 == "Water") %>% 
+  mutate(Name.fill = if_else(Name == "Squirtle", TRUE, FALSE)) 
+ggplot(data = pokemon_water, aes(x = Total, 
+                                 y = Name, 
+                                 fill = Name.fill)) + 
+  geom_col() +
+  scale_fill_discrete(type = c("gray50","red")) +
+  labs(title = "Comparing Character's from Type.1 of Water") +
+  geom_vline(data = pokemon_water, aes(xintercept = mean(Total)))
 ```
+
+```{r}
+pokemon_grass <- pokemon_df  %>% 
+  filter(Type.1 == "Grass") %>% 
+  mutate(Name.fill = if_else(Name == "Gloom", TRUE, FALSE)) 
+ggplot(data = pokemon_grass, aes(x = Total, 
+                                 y = Name, 
+                                 fill = Name.fill)) + 
+  geom_col() +
+  scale_fill_discrete(type = c("gray50","red")) +
+  labs(title = "Comparing Character's from Type.1 of Grass") +
+  geom_vline(data = pokemon_grass, aes(xintercept = mean(Total)))
+```
+
