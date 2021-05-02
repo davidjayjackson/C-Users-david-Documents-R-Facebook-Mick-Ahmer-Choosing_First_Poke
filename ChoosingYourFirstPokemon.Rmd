@@ -16,7 +16,7 @@ library(dplyr)
 library(tidyr)
 library(dlookr)
 library(flextable)
-library(ggtext)
+# library(ggtext)
 ```
 
 ## Descriptive Stats
@@ -34,9 +34,7 @@ pokemon_df <- pokemon_df %>% filter(!Name %in% c("VenusaurMega Venusaur","Chariz
 ```{r}
 pokemon_df %>% select(Total:Speed) %>% diagnose_numeric() %>% flextable()
 ```
-```{r}
-pokemon_df %>% flextable()
-```
+
 
 ```{r}
 barplot(table(pokemon_df$Type.1),main="Count by Charactor Type")
@@ -64,8 +62,7 @@ ggplot(data=pokemon_grass,aes(x=Total,y=Name)) + geom_col() +
 pokemon_fire <-pokemon_df  %>% filter(Type.1 =="Fire")
 ggplot(data=pokemon_fire,aes(x=Total,y=Name)) + geom_col() +
   labs(title="Comparing Character's from Type.1 of Fire") +
-  theme(axis.text.y = element_text(angle = -45)) +
-  geom_vline(data=pokemon_fire, aes(xintercept = mean(Total)))
+    geom_vline(data=pokemon_fire, aes(xintercept = mean(Total)))
 ```
 ### Plot of Water
 
@@ -73,6 +70,5 @@ ggplot(data=pokemon_fire,aes(x=Total,y=Name)) + geom_col() +
 pokemon_water <-pokemon_df  %>% filter(Type.1 =="Water")
 ggplot(data=pokemon_water,aes(x=reorder(Name,Total),y=Total)) + geom_col() +
   labs(title="Comparing Character's from Type.1 of Water") +   coord_flip() +
-  geom_vline(data=pokemon_water,aes(xintercept = mean(Total))) +
-  scale_fill_manual(values=c("red","blue"))
+  geom_vline(data=pokemon_water,aes(xintercept = mean(Total)))
 ```
